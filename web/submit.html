@@ -1,0 +1,55 @@
+<!-- 表单页 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>蚂蚁前端课堂</title>
+    <link rel="icon" href="favicon.ico" />
+    <link href="./css/common.css" rel="stylesheet" />
+    <link href="./css/submit.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav>
+      <a class="logo" href="https://campus.antfin.com" target="_blank">
+        <img src="./imgs/logo.png" />
+      </a>
+      <a href="./index.html">首页</a>
+      <a href="./index.html#gallery">画廊</a>
+      <a href="./index.html#about">关于</a>
+      <a href="./submit.html">上传</a>
+      <a class="search" href="https://www.google.com/search?q=前端学习" target="_blank">
+        <img src="./imgs/search.png" />
+      </a>
+    </nav>
+    <header>
+      <h1>记录眼中的美好</h1>
+    </header>
+    <main>
+      <section class="form-wrap">
+        <div class="file-wrap">
+          <label for="upload">
+            <img id="preview" src="./imgs/upload.png" />
+          </label>
+          <input id="upload" type="file" accept=".png, .jpg, .jpeg" />
+        </div>
+        <div class="input-wrap">
+          <input id="name", placeholder="名称" />
+          <input id="photographer" placeholder="拍摄者" />
+          <textarea id="desc" placeholder="描述"></textarea>
+        </div>
+      </section>
+      <section class="btn-wrap">
+        <button onclick="uploadFile()">发布</button>
+      </section>
+    </main>
+    <footer>
+      <span>Copyright @ 2021</span>
+      <a href="https://xcloud.alipay.com" target="_blank">
+        <img src="./imgs/afx-logo.png" />
+    </footer>
+    <script src="./js/submit.js"></script>
+</body>
+
+</html>
