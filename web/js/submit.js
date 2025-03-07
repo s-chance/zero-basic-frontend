@@ -17,6 +17,15 @@ function handlePreview() {
 
     reader.readAsDataURL(uploadEl.files[0]);
   });
+
+  const nameEl = $("#name");
+  const photographerEl = $("#photographer");
+  const descEl = $("#desc");
+
+  nameEl.value = sessionStorage.getItem("name");
+  photographerEl.value = sessionStorage.getItem("photographer");
+  descEl.value = sessionStorage.getItem("desc");
+  previewEl.src = sessionStorage.getItem("picPath");
 }
 
 handlePreview();
@@ -27,6 +36,12 @@ async function uploadFile() {
   const photographer = $("#photographer").value.trim();
   const desc = $("#desc").value.trim();
   const fileObj = $("#upload").files[0];
+  const currentPreview = $("#preview").src;
+  console.log(currentPreview);
+  if (currentPreview && currentPreview.length != 0 && !currentPreview.startsWith("data:image/")) {
+    window.location.href = "index.html";
+    return;
+  }
   if (!fileObj) {
     alert("请选择图片");
     return;
@@ -73,4 +88,32 @@ async function uploadFile() {
     console.error("上传文件发生错误", e);
   }
   alert("上传失败！");
+}
+
+async function deleteFile() {
+  const fileSrc = $("#preview").src;
+  const filePath = fileSrc.substring(fileSrc.indexOf("data"));
+  console.log("删除文件", filePath);
+
+  try {
+    const response = await fetch("/delete", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(filePath),
+    });
+    console.log("状态码", response.status);
+
+    const result = await response.json();
+    if (result.success) {
+      alert("删除成功！");
+      window.location.href = "index.html";
+      return;
+    }
+  } catch (e) {
+    console.error("删除失败", e);
+  }
+
+  alert("删除失败！");
 }

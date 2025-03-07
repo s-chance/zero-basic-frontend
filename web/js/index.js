@@ -7,11 +7,11 @@ function $(selector) {
 function appendPic(item) {
   const { name, photographer, desc, picPath } = item || {};
   const html = `
-  <li class="gallery-item">
-    <img src="${picPath}" />
-    <p class="name">${name}</p>
-    <p class="photographer">${photographer}</p>
-    <p class="desc">${desc}</p>
+  <li class="gallery-item" onclick="deleteFile('${name}','${photographer}','${desc}','${picPath}')">
+      <img src="${picPath}" />
+      <p class="name">${name}</p>
+      <p class="photographer">${photographer}</p>
+      <p class="desc">${desc}</p>
   </li>`;
 
   $("#pics").innerHTML += html;
@@ -25,7 +25,7 @@ async function fetchPics() {
     console.log("返回状态", response.status);
     const result = await response.json();
 
-    result.data.forEach(item => {
+    result.data.forEach((item) => {
       appendPic(item); // 添加图片
     });
   } catch (e) {
@@ -35,3 +35,12 @@ async function fetchPics() {
 }
 
 fetchPics();
+
+function deleteFile(name, photographer, desc, picPath) {
+  window.sessionStorage.setItem("name", name);
+  window.sessionStorage.setItem("photographer", photographer);
+  window.sessionStorage.setItem("desc", desc);
+  window.sessionStorage.setItem("picPath", picPath);
+
+  location.href="submit.html";
+}
